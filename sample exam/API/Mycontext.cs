@@ -1,6 +1,6 @@
 // shadow foreign key = nor accessible
 // context class
-
+/*
 using Microsoft.EntityFrameworkCore;
 public class Mycontext : DbContext
 {
@@ -15,3 +15,4 @@ public class Mycontext : DbContext
         modelBuilder.Entity<EmpProj>().HasKey(t => new { t.EmpId, t.ProjName });
     }
 }
+*/

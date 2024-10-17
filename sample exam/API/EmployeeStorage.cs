@@ -1,3 +1,4 @@
+/*
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 
@@ -53,3 +54,4 @@ public class EmployeeStorage : IEmployeeStorage
         return await myContext.Employees.FindAsync(id);
     }
 }
+*/

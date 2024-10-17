@@ -1,16 +1,7 @@
 // model class/entity class
+
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-public class Employee
-{
-    public Guid Id { get; set; }
-    public string? Name { get; set; }
-    public Employee(Guid id, string name)
-    {
-        Id = id;
-        Name = name;
-    }
-}
 
 public class Dept
 {
@@ -34,4 +25,3 @@ public class EmpProj
     public string ProjName { get; set; }
     public string Name { get; set; }
 }
-

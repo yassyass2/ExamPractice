@@ -1,3 +1,4 @@
+/*
 using Microsoft.AspNetCore.Mvc;
 
 [Route("Employees")]
@@ -25,9 +26,9 @@ public class EmployeesController : Controller
         }
         else
         {
-            return Ok(await employeeStorage.GetByID((Guid)id));
+            var employee = await employeeStorage.GetbyId(id);
+            return employee == null ? NotFound($"employee with id {id} not found") : Ok(employee);
         }
     }
-    // dotnet-ef migrations add m1
+    // dotnet-ef migrations add m1*/
     // dotnet-ef database update
-}

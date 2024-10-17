@@ -1,0 +1,24 @@
+GET https://localhost:5236/api/employees
+###
+
+GET https://localhost:5236/api/employees?id=b10c13ea-a166-4ab6-a3ea-36efe877da23
+###
+
+###[guid]::NewGuid()
+POST  https://localhost:5236/api/employees
+Content-Type: application/json
+
+{
+  "Id":"b10c13ea-a166-4ab6-a3ea-36efe877da23",
+  "Name": "test employee"
+}
+###
+DELETE  https://localhost:5236/api/employees?id=b10c13ea-a166-4ab6-a3ea-36efe877da23
+###
+PUT  https://localhost:5236/api/employees?id=b10c13ea-a166-4ab6-a3ea-36efe877da23
+Content-Type: application/json
+
+{
+  "Id":"b10c13ea-a166-4ab6-a3ea-36efe877da23",
+  "Name": "test employee 2"
+}
