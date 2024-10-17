@@ -1,0 +1,18 @@
+GET https://localhost:5236
+###
+
+GET https://localhost:5236/API
+###
+DELETE  https://localhost:5236/API?id=b10c13ea-a166-4ab6-a3ea-36efe877da23
+###
+
+
+###[guid]::NewGuid()
+POST  https://localhost:5236/API
+Content-Type: application/json
+
+{
+  "Id":"b10c13ea-a166-4ab6-a3ea-36efe877da23",
+  "Name": "Some one else Name"
+}
+###

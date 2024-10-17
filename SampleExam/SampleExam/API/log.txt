@@ -1,0 +1,9 @@
+request headers: Connection: close
+Host: localhost:5236
+User-Agent: vscode-restclient
+Accept-Encoding: gzip, deflate
+Cookie: .AspNetCore.Session=CfDJ8PvaSkmVssFGire%2BvQh1vNDa2OVTmHzzuiMS7BugD5AvXITKnu7%2BrJftJdQe5vb6tMenpiZTJ%2FMrZrDKgTD0IUdFHI2YiBwPcRvCOBbmrSLJpWmonTcYETfJYprAw%2BpaQN7xcltPV9%2BReYy7aj8ajoW9qUyCnn4sPPXbjbUwpr7j
+request body: 
+request path: /API
+response body: [{"id":"c1faa3ae-b945-4735-9c83-54e77c42db07","name":"Some Name"}]
+response headers: Content-Type: application/json; charset=utf-8
