@@ -12,6 +12,7 @@ var app = builder.Build();
 
 app.MapControllers();
 app.Urls.Add("https://localhost:5236");
+app.UseMiddleware<LogRequestMiddleware>();
 
 app.Run();
 
@@ -117,4 +118,33 @@ public class EmployeeStorage : IEmployeeStorage{
         await _context.SaveChangesAsync();
         return true;
     }
+}
+
+public class LogRequestMiddleware
+{
+  private readonly RequestDelegate _next;
+
+  public LogRequestMiddleware(RequestDelegate next)
+  {
+    _next = next;
+  }
+
+  public async Task InvokeAsync(HttpContext context)
+  {
+    context.Request.EnableBuffering();
+
+    await _next(context);
+
+    var toLog = new Dictionary<string, string>
+    {
+        { "\nrequest at Route", $"{context.Request.Path}" },
+        { "request method used", $"{context.Request.Method}" },
+        { "response status code", $"{context.Response.StatusCode}" }
+    };
+
+    foreach (var kvp in toLog)
+    {
+        File.AppendAllText("log.txt", $"{kvp.Key}: {kvp.Value}\n");
+    }
+  }
 }
