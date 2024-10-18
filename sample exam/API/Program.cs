@@ -135,16 +135,8 @@ public class LogRequestMiddleware
 
     await _next(context);
 
-    var toLog = new Dictionary<string, string>
-    {
-        { "\nrequest at Route", $"{context.Request.Path}" },
-        { "request method used", $"{context.Request.Method}" },
-        { "response status code", $"{context.Response.StatusCode}" }
-    };
-
-    foreach (var kvp in toLog)
-    {
-        File.AppendAllText("log.txt", $"{kvp.Key}: {kvp.Value}\n");
-    }
+    File.AppendAllText("log.txt", $"\nRequest at Route: {context.Request.Path}\n");
+    File.AppendAllText("log.txt", $"Request method used: {context.Request.Method}\n");
+    File.AppendAllText("log.txt", $"Response status code: {context.Response.StatusCode}\n");
   }
 }

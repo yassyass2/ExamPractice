@@ -1,7 +1,3 @@
-request url: /api/employees
-request body: GET
-status code: 200
-
-request at Route: /api/employees
-request method used: GET
-response status code: 200
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 200
