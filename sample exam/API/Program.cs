@@ -89,7 +89,7 @@ public class EmployeeStorage : IEmployeeStorage{
 
 
     public async Task Add(Employee employee){
-        if (employee != null)
+        if (employee != null && _context.Employees.FirstOrDefault(x => x.Id == employee.Id) == null)
         {
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync();
