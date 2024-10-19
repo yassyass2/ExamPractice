@@ -57,6 +57,7 @@ public class EmployeeController : Controller{
         return Ok();
     }
     [AdminAuthorizationFilter("Admin")]
+    [ResponseModifyFilter()]
     [HttpGet("")]
     public async Task<IActionResult> GetEmployee([FromQuery] Guid? id = null)
     {
@@ -158,5 +159,13 @@ public class AdminAuthorizationFilter : Attribute, IAuthorizationFilter
         if (authHeader == null || authHeader != "Admin"){
             con.Result = new UnauthorizedResult();
         }
+    }
+}
+
+public class ResponseModifyFilter : Attribute, IAsyncActionFilter
+{
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next){
+        await next();
+        context.HttpContext.Response.Headers.Add("added-header", "nice");
     }
 }

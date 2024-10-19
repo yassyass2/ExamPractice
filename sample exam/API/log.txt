@@ -9,3 +9,7 @@ Response status code: 401
 Request at Route: /api/employees
 Request method used: GET
 Response status code: 200
+
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 200
