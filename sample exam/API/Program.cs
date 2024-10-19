@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +56,7 @@ public class EmployeeController : Controller{
         await _employeeStorage.Add(employee);
         return Ok();
     }
-
+    [AdminAuthorizationFilter("Admin")]
     [HttpGet("")]
     public async Task<IActionResult> GetEmployee([FromQuery] Guid? id = null)
     {
@@ -139,4 +140,23 @@ public class LogRequestMiddleware
     File.AppendAllText("log.txt", $"Request method used: {context.Request.Method}\n");
     File.AppendAllText("log.txt", $"Response status code: {context.Response.StatusCode}\n");
   }
+}
+
+public class AdminAuthorizationFilter : Attribute, IAuthorizationFilter
+{
+    private readonly string _adminToken;
+
+    public AdminAuthorizationFilter(string adminToken)
+    {
+        _adminToken = "Admin";
+    }
+
+    public void OnAuthorization(AuthorizationFilterContext con)
+    {
+        var authHeader = con.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+        Console.WriteLine(authHeader);
+        if (authHeader == null || authHeader != "Admin"){
+            con.Result = new UnauthorizedResult();
+        }
+    }
 }
