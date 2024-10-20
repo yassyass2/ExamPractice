@@ -51,6 +51,7 @@ public class EmployeeController : Controller{
     }
 
     [HttpPost("")]
+    [RequireCustomHeaderFilter()]
     public async Task<IActionResult> PostEmployee([FromBody] Employee employee)
     {
         await _employeeStorage.Add(employee);
@@ -178,5 +179,17 @@ public class ResponseModifyFilter : Attribute, IAsyncActionFilter
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next){
         await next();
         context.HttpContext.Response.Headers.Add("added-header", "nice");
+    }
+}
+
+public class RequireCustomHeaderFilter : Attribute, IAsyncActionFilter{
+    public async Task OnActionExecutionAsync (ActionExecutingContext context, ActionExecutionDelegate next)
+    {
+        if (context.HttpContext.Request.Headers["POST_KEY"].FirstOrDefault() == null)
+        {
+            context.HttpContext.Response.Headers.Add("NoPostKey","next time add header POST_KEY");
+            context.Result = new BadRequestObjectResult("next time add header POST_KEY");
+        }
+        next();
     }
 }

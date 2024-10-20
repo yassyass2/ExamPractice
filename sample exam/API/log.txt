@@ -105,3 +105,27 @@ Response status code: 200
 Request at Route: /api/employees
 Request method used: POST
 Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 400
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 400
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
