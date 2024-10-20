@@ -71,6 +71,11 @@ public class EmployeeController : Controller{
             return employee == null ? NotFound($"employee with id {id} not found") : Ok(employee);
         }
     }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateEmployee([FromBody] Employee emp, [FromRoute] Guid? id = null){
+        if (id == null || emp == null) return BadRequest("you didn't pass an ID or body");
+        return await _employeeStorage.Update((Guid)id, emp) ? Ok("updated succesfully") : BadRequest("no id or body given, or employee not existing.");
+    }
 }
 
 public interface IEmployeeStorage{
@@ -113,12 +118,12 @@ public class EmployeeStorage : IEmployeeStorage{
     }
 
     public async Task<bool> Update(Guid id, Employee emp){
+        if (id == null || emp == null) return false;
         var Emp = await _context.Employees.FirstOrDefaultAsync(_ => _.Id == id);
         if (Emp == null) return false;
         Emp.Id = emp.Id;
         Emp.Name = emp.Name;
-        await _context.SaveChangesAsync();
-        return true;
+        return await _context.SaveChangesAsync() > 0;
     }
 }
 

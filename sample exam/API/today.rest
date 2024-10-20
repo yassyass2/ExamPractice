@@ -16,7 +16,7 @@ Content-Type: application/json
 ###
 DELETE  https://localhost:5236/api/employees?id=b10c13ea-a166-4ab6-a3ea-36efe877da23
 ###
-PUT  https://localhost:5236/api/employees?id=b10c13ea-a166-4ab6-a3ea-36efe877da23
+PUT  https://localhost:5236/api/employees/b10c13ea-a166-4ab6-a3ea-36efe877da23
 Content-Type: application/json
 
 {
