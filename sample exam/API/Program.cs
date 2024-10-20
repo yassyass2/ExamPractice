@@ -71,10 +71,17 @@ public class EmployeeController : Controller{
             return employee == null ? NotFound($"employee with id {id} not found") : Ok(employee);
         }
     }
+
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateEmployee([FromBody] Employee emp, [FromRoute] Guid? id = null){
         if (id == null || emp == null) return BadRequest("you didn't pass an ID or body");
         return await _employeeStorage.Update((Guid)id, emp) ? Ok("updated succesfully") : BadRequest("no id or body given, or employee not existing.");
+    }
+
+    [HttpDelete("")]
+    public async Task<IActionResult> DeleteEmployee([FromQuery] Guid? id = null){
+        if (id == null) return BadRequest("no id given");
+        return await _employeeStorage.Delete((Guid)id) ? Ok("employee deleted") : BadRequest("employee didn't exist anyway");
     }
 }
 
@@ -82,7 +89,7 @@ public interface IEmployeeStorage{
     Task Add(Employee employee);
     Task<bool> Update(Guid id, Employee employee);
     Task<bool> Delete(Guid id);
-    Task<List<Employee>> GetAll();
+    Task<IEnumerable<Employee>> GetAll();
     Task<Employee> GetbyId(Guid id);
 }
 
@@ -104,7 +111,7 @@ public class EmployeeStorage : IEmployeeStorage{
         return await _context.Employees.FirstOrDefaultAsync(_ => _.Id == id);
     }
 
-    public async Task<List<Employee>> GetAll()
+    public async Task<IEnumerable<Employee>> GetAll()
     {
         return await _context.Employees.ToListAsync();
     }
@@ -113,8 +120,7 @@ public class EmployeeStorage : IEmployeeStorage{
         var Emp = await _context.Employees.FirstOrDefaultAsync(_ => _.Id == id);
         if (Emp == null) return false;
         _context.Employees.Remove(Emp);
-        await _context.SaveChangesAsync();
-        return true;
+        return await _context.SaveChangesAsync() > 0;
     }
 
     public async Task<bool> Update(Guid id, Employee emp){

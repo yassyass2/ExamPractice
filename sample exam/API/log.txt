@@ -49,3 +49,59 @@ Response status code: 200
 Request at Route: /api/employees/b10c13ea-a166-4ab6-a3ea-36efe877da23
 Request method used: PUT
 Response status code: 400
+
+Request at Route: /api/employees
+Request method used: DELETE
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: DELETE
+Response status code: 400
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: DELETE
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: DELETE
+Response status code: 400
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 401
+
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: DELETE
+Response status code: 200
+
+Request at Route: /api/employees
+Request method used: POST
+Response status code: 200
