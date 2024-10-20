@@ -190,6 +190,10 @@ public class RequireCustomHeaderFilter : Attribute, IAsyncActionFilter{
             context.HttpContext.Response.Headers.Add("NoPostKey","next time add header POST_KEY");
             context.Result = new BadRequestObjectResult("next time add header POST_KEY");
         }
+        else if (context.HttpContext.Request.Headers["POST_KEY"] != "lol1"){
+            context.HttpContext.Response.Headers.Add("WrongPostKey","wrong header POST_KEY");
+            context.Result = new UnauthorizedObjectResult("wrong PostKey");
+        }
         next();
     }
 }
