@@ -1,5 +1,6 @@
 GET https://localhost:5236/api/employees
 Authorization: Admin
+random: *
 ###
 
 GET https://localhost:5236/api/employees?id=b10c13ea-a166-4ab6-a3ea-36efe877da23
