@@ -15,6 +15,23 @@ app.MapControllers();
 app.Urls.Add("https://localhost:5236");
 app.UseMiddleware<LogRequestMiddleware>();
 
+var bannedIp = app.Configuration.GetValue<string>("IP");
+
+app.Use(async (context, next) =>
+{
+    var requestIp = context.Connection.RemoteIpAddress?.ToString();
+
+    if (requestIp == bannedIp)
+    {
+        context.Response.StatusCode = 403;
+        await context.Response.WriteAsync("Access denied. Your IP is not allowed.");
+        return;
+    }
+
+    await next();
+});
+
+
 app.Run();
 
 public class Employee{
@@ -76,7 +93,7 @@ public class EmployeeController : Controller{
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateEmployee([FromBody] Employee emp, [FromRoute] Guid? id = null){
         if (id == null || emp == null) return BadRequest("you didn't pass an ID or body");
-        return await _employeeStorage.Update((Guid)id, emp) ? Ok("updated succesfully") : BadRequest("no id or body given, or employee not existing.");
+        return await _employeeStorage.Update((Guid)id, emp) ? Ok("updated succesfully") : BadRequest("employee not existing.");
     }
 
     [HttpDelete("")]

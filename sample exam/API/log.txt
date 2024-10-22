@@ -1,0 +1,12 @@
+
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 403
+
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 403
+
+Request at Route: /api/employees
+Request method used: GET
+Response status code: 200
