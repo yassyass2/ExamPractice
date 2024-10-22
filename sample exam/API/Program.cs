@@ -31,8 +31,27 @@ app.Use(async (context, next) =>
     await next();
 });
 
+var inf = app.Configuration.GetValue<string>("AllowedHosts");
+app.UseMiddleware<HostMiddleware>(inf);
 
 app.Run();
+
+public class HostMiddleware{
+    private readonly RequestDelegate _next;
+    private string _host;
+    public HostMiddleware(RequestDelegate next, string host)
+    {
+        _next = next;
+        _host = host;
+    }
+    public async Task InvokeAsync(HttpContext context){
+        if (context.Request.Headers["random"].FirstOrDefault() == null || context.Request.Headers["random"].FirstOrDefault() != _host){
+            context.Response.StatusCode = 403;
+            await context.Response.WriteAsync("no Host given or incorrect");
+        }
+        await _next(context);
+    }
+}
 
 public class Employee{
     public Guid Id { get; set;}
@@ -193,8 +212,8 @@ public class AdminAuthorizationFilter : Attribute, IAuthorizationFilter
 public class ResponseModifyFilter : Attribute, IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next){
-        await next();
         context.HttpContext.Response.Headers.Add("added-header", "nice");
+        await next();
     }
 }
 
@@ -210,6 +229,6 @@ public class RequireCustomHeaderFilter : Attribute, IAsyncActionFilter{
             context.HttpContext.Response.Headers.Add("WrongPostKey","wrong header POST_KEY");
             context.Result = new UnauthorizedObjectResult("wrong PostKey");
         }
-        next();
+        await next();
     }
 }
