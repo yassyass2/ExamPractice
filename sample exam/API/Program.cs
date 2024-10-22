@@ -125,7 +125,6 @@ public class EmployeeStorage : IEmployeeStorage{
     }
 
     public async Task<bool> Update(Guid id, Employee emp){
-        if (id == null || emp == null) return false;
         var Emp = await _context.Employees.FirstOrDefaultAsync(_ => _.Id == id);
         if (Emp == null) return false;
         Emp.Id = emp.Id;
